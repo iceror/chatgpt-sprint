@@ -10,7 +10,6 @@ client = OpenAI(
     api_key=os.environ.get("OPENAI_API_KEY"),
 )
 
-
 def tonality_menu():
   print("In wich tonality you'd like to work?")
   print("1. C")
@@ -41,7 +40,7 @@ def get_key():
     #     print("Invalid input. Please enter a valid number (1-7) or 'q' to quit.")
 
 def is_alterated(user_key):
-    sharp_or_flat = input("Sharp or flat?")
+    sharp_or_flat = input("Sharp or flat? ")
     if sharp_or_flat.lower() == "sharp":
       return user_key + "# "
     elif sharp_or_flat.lower() == "flat":
@@ -127,23 +126,23 @@ def generate_videogame_track():
     user_key = is_alterated(user_key)
 
   mode = get_mode()
-  #print(user_key + mode)
 
   scenario = get_scenario()
-  #print(scenario)
+
   duration = get_duration()
-  modulation_bool = input("Would you like the track to have a modulation? (Yes/No)")
+  modulation_bool = input("Would you like the track to have a modulation? (Yes/No) ")
   if modulation_bool.lower() == "yes":
-    modulation_key = get_key()
+      modulation_key = get_key()
 
-  modulation_alteration = input("Would you like your tonality to be # of b? (Yes/No) ")
-  if modulation_alteration.lower() == "yes":
-    modulation_key = is_alterated(modulation_key)
+      modulation_alteration = input("Would you like your tonality to be # of b? (Yes/No) ")
+      if modulation_alteration.lower() == "yes":
+        modulation_key = is_alterated(modulation_key)
 
-    modulation_mode = get_mode()
-    modulation_bars = input("For how many bars? ")
-    user_prompt = f"The videogame is called {videogame_name}. Generate a chord chart in {user_key} {mode} for the {scenario} that has a total duration of {duration}. The track will modulate to {modulation_key}{modulation_mode} for {modulation_bars} bars and come back to the original key. The track must me loopable and have and ending to the tonal center of the original key."
-  elif modulation_bool == False:
+      modulation_mode = get_mode()
+      modulation_bars = input("For how many bars? ")
+
+      user_prompt = f"The videogame is called {videogame_name}. Generate a chord chart in {user_key} {mode} for the {scenario} that has a total duration of {duration}. The track will modulate to {modulation_key}{modulation_mode} for {modulation_bars} bars and come back to the original key. The track must me loopable and have and ending to the tonal center of the original key."
+  else:
     user_prompt = f"Generate a chord chart in {user_key} {mode} for the {scenario} that has a duration of {duration}. The videogame is called {videogame_name}. The track must me loopable and have and ending to the tonal center of the key"
 
   chat_completion = openai.chat.completions.create(
